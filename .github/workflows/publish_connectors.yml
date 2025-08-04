@@ -56,8 +56,8 @@ jobs:
           echo connectors-to-publish-jvm=$(./poe-tasks/get-modified-connectors.sh --prev-commit --java --json) | tee -a $GITHUB_OUTPUT
     outputs:
       # Exactly one of the manual/master steps will run, so just OR them together.
-      connectors-to-publish: ${{ steps.list-connectors-manual.connectors-to-publish || steps.list-connectors-master.connectors-to-publish }}
-      connectors-to-publish-jvm: ${{ steps.list-connectors-manual.connectors-to-publish-jvm || steps.list-connectors-master.connectors-to-publish-jvm }}
+      connectors-to-publish: ${{ steps.list-connectors-manual.outputs.connectors-to-publish || steps.list-connectors-master.outputs.connectors-to-publish }}
+      connectors-to-publish-jvm: ${{ steps.list-connectors-manual.outputs.connectors-to-publish-jvm || steps.list-connectors-master.outputs.connectors-to-publish-jvm }}
   publish_connectors:
     name: Publish connectors
     needs: [list_connectors]
